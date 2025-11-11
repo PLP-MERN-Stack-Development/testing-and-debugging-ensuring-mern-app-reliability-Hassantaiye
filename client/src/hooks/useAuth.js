@@ -25,6 +25,24 @@ export function useAuth() {
 		[dispatch]
 	);
 
+	const register = useCallback(
+		async (userData) => {
+			try {
+				dispatch(loginStart());
+				const response = await apiRequest('/api/auth/register', {
+					method: 'POST',
+					body: JSON.stringify(userData)
+				});
+				dispatch(loginSuccess(response));
+				return response;
+			} catch (err) {
+				dispatch(loginFailure(err.message || 'Registration failed'));
+				throw err;
+			}
+		},
+		[dispatch]
+	);
+
 	const logoutUser = useCallback(() => {
 		dispatch(logout());
 	}, [dispatch]);
@@ -35,6 +53,7 @@ export function useAuth() {
 		error,
 		token,
 		login,
+		register,
 		logout: logoutUser
 	};
 }

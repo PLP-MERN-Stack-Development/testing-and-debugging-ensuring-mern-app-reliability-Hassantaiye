@@ -30,14 +30,26 @@ export default function PostForm({ onSuccess }) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setErrors({}); // Clear previous errors
 		if (!validate()) return;
 		setSubmitting(true);
 		try {
-			await createPost(form);
+			// Ensure we're sending the correct data
+			const postData = {
+				title: form.title.trim(),
+				content: form.content.trim(),
+				category: form.category.trim()
+			};
+			await createPost(postData);
 			setForm(initialState);
+			setErrors({});
 			if (onSuccess) onSuccess();
 		} catch (err) {
-			setErrors({ submit: err.message || 'Failed to create post' });
+			// Show server error message
+			const errorMessage = err.message || 'Failed to create post';
+			setErrors({ submit: errorMessage });
+			// eslint-disable-next-line no-console
+			console.error('Post creation error:', err);
 		} finally {
 			setSubmitting(false);
 		}

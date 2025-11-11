@@ -1,23 +1,22 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 
-export default function LoginPage() {
+export default function RegisterPage() {
 	const navigate = useNavigate();
 
 	return (
 		<section className="mx-auto max-w-3xl space-y-4">
-			<LoginForm onSuccess={() => navigate('/dashboard')} />
+			<RegisterForm onSuccess={() => navigate('/dashboard')} />
 			<div className="mx-auto max-w-md text-center">
 				<p className="text-sm text-gray-600">
-					Don't have an account?{' '}
-					<Link to="/register" className="font-medium text-blue-600 hover:text-blue-700">
-						Register here
+					Already have an account?{' '}
+					<Link to="/login" className="font-medium text-blue-600 hover:text-blue-700">
+						Login here
 					</Link>
 				</p>
 			</div>
 		</section>
 	);
 }
-
 

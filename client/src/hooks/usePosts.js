@@ -35,6 +35,12 @@ export function usePosts() {
 	const createPost = useCallback(
 		async (payload) => {
 			try {
+				// Debug: log what we're sending
+				if (process.env.NODE_ENV !== 'production') {
+					// eslint-disable-next-line no-console
+					console.log('Sending post data:', payload);
+				}
+				
 				const data = await apiRequest('/api/posts', {
 					method: 'POST',
 					body: JSON.stringify(payload),
@@ -43,10 +49,12 @@ export function usePosts() {
 				dispatch(addPost(data));
 				return data;
 			} catch (err) {
+				// eslint-disable-next-line no-console
+				console.error('Error creating post:', err);
 				throw err;
 			}
 		},
-		[dispatch]
+		[dispatch, token]
 	);
 
 	return {

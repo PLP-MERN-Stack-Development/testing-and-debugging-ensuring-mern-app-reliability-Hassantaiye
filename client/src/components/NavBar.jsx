@@ -46,12 +46,20 @@ export default function NavBar() {
 							</Button>
 						</>
 					) : (
-						<Link
-							to="/login"
-							className="rounded bg-blue-600 px-3 py-2 font-medium text-white hover:bg-blue-700"
-						>
-							Login
-						</Link>
+						<>
+							<Link
+								to="/register"
+								className="rounded bg-green-600 px-3 py-2 font-medium text-white hover:bg-green-700"
+							>
+								Register
+							</Link>
+							<Link
+								to="/login"
+								className="rounded bg-blue-600 px-3 py-2 font-medium text-white hover:bg-blue-700"
+							>
+								Login
+							</Link>
+						</>
 					)}
 				</div>
 			</div>
